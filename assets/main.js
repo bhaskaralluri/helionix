@@ -119,6 +119,21 @@
      (The key is designed to be public; it can only send to your registered email.) */
   const WEB3FORMS_ACCESS_KEY = "";
 
+  /* Shared sender used by other pages (e.g. job applications).
+     With a key: posts to Web3Forms. Without one: opens the visitor's email app. */
+  window.hxSend = (subject, fields) => {
+    if (!WEB3FORMS_ACCESS_KEY) {
+      const body = Object.entries(fields).map(([k, v]) => `${k}: ${v || "-"}`).join("\n");
+      location.href = `mailto:hello@helionixai.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return Promise.resolve({ fallback: true });
+    }
+    return fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ access_key: WEB3FORMS_ACCESS_KEY, subject, from_name: "Helionix AI Systems website", ...fields, botcheck: "" })
+    }).then(r => r.json()).then(d => { if (!d.success) throw new Error(d.message || "failed"); return d; });
+  };
+
   const form = $("#contactForm"), note = $("#formNote");
   if (form) { /* hidden spam trap: humans never see or fill this */
     const hp = document.createElement("input");
