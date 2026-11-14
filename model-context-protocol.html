@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model Context Protocol (MCP) explained for enterprises | Helionix AI Systems</title>
+  <meta name="description" content="What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.">
+  <link rel="canonical" href="https://helionixai.com/model-context-protocol.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Model Context Protocol (MCP) explained for enterprises | Helionix AI Systems">
+  <meta property="og:description" content="What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.">
+  <meta property="og:url" content="https://helionixai.com/model-context-protocol.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Model Context Protocol (MCP) explained for enterprises", "description": "What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/model-context-protocol.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">MCP</span>
+      <h1 class="reveal d1">Model Context Protocol (MCP) explained for enterprises</h1>
+      <p class="lead reveal d2">What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 9 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>Every useful AI agent needs to reach beyond the model: your CRM, your ticketing system, your documents, your databases. Historically each connection was custom glue code, repeated for every app and every model, a classic N-times-M integration problem.</p>
+<p>The <strong>Model Context Protocol (MCP)</strong> is an open standard that fixes this. Introduced by Anthropic in late 2024 and since adopted widely across the AI ecosystem, it defines one common way for AI applications to discover and use external tools and data. A common analogy: <em>MCP is a universal connector for AI</em>, much as USB-C standardised how devices connect to peripherals.</p>
+
+<h2>How MCP works</h2>
+<p>MCP uses a client-server model over JSON-RPC:</p>
+<ul>
+<li><strong>Host:</strong> the AI application the user interacts with (an assistant, IDE or agent platform).</li>
+<li><strong>Client:</strong> a connector inside the host that maintains a connection to one server.</li>
+<li><strong>Server:</strong> a lightweight program that exposes capabilities from a system, such as Jira, Salesforce, Postgres or a file store.</li>
+</ul>
+<div class="flow flow--article"><div class="flow__node"><span>1</span><h4>AI host</h4><p>Assistant or agent app</p></div><i class="flow__line"></i><div class="flow__node flow__node--core"><span>2</span><h4>MCP client</h4><p>One per connected server</p></div><i class="flow__line"></i><div class="flow__node"><span>3</span><h4>MCP server</h4><p>Wraps a tool or data source</p></div><i class="flow__line"></i><div class="flow__node"><span>4</span><h4>Your systems</h4><p>CRM, ERP, DBs, APIs</p></div></div>
+
+<h2>What a server can expose</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Primitive</th><th>Controlled by</th><th>Purpose</th></tr></thead><tbody><tr><td><strong>Tools</strong></td><td>The model</td><td>Actions the model can invoke, e.g. create a ticket, run a query.</td></tr><tr><td><strong>Resources</strong></td><td>The application</td><td>Data to read into context, e.g. a document or record.</td></tr><tr><td><strong>Prompts</strong></td><td>The user</td><td>Reusable, templated workflows a user can trigger.</td></tr></tbody></table></div>
+<p>Servers run locally (over standard input/output) or remotely (over HTTP), and MCP includes an authorization approach built on OAuth for remote servers.</p>
+
+<h2>Why enterprises care</h2>
+<ul>
+<li><strong>Build once, reuse everywhere.</strong> One MCP server for an internal system works across compatible assistants and agents.</li>
+<li><strong>Less lock-in.</strong> A standard interface makes swapping models or agent platforms far easier.</li>
+<li><strong>Faster delivery.</strong> A growing ecosystem of ready-made servers means fewer custom integrations.</li>
+<li><strong>Central governance.</strong> One well-managed gateway layer is easier to secure and audit than dozens of bespoke integrations.</li>
+</ul>
+
+<h2>Security and governance: do not skip this</h2>
+<p>MCP makes it easy to connect agents to powerful systems, which is exactly why it needs discipline:</p>
+<ul>
+<li><strong>Least privilege.</strong> Scope each server's credentials narrowly and prefer read-only where possible.</li>
+<li><strong>Vet servers.</strong> Treat third-party servers like any dependency: review, pin versions and prefer trusted sources.</li>
+<li><strong>Beware prompt injection.</strong> Text returned by tools is untrusted input and can contain instructions aimed at the model. Validate, filter and require approval for sensitive actions.</li>
+<li><strong>Authenticate and authorise per user.</strong> Actions should run with the end user's permissions, not a shared super-account.</li>
+<li><strong>Log everything.</strong> Keep audit trails of tool calls, arguments and outcomes.</li>
+</ul>
+<aside class="callout"><b>How we use MCP</b><p>We design MCP servers and gateways for enterprise systems with scoped access, approval gates and audit logging, so agents get real reach without giving up control. It slots into the permissions and guardrail layers of the <a href='harness-engineering.html'>agent harness</a>.</p></aside>
+<p>Considering MCP for your stack? See our <a href="ai-agents.html">enterprise AI agents</a> service or <a href="contact.html">talk to us</a>.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="harness-engineering.html" class="post reveal d0"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a><a href="agent-loop.html" class="post reveal d1"><span class="tag">AI Agents</span><h3>The agent loop: how AI agents plan, act and verify</h3><p>The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.</p><em>8 min read &rarr;</em></a><a href="context-engineering.html" class="post reveal d2"><span class="tag">Context Engineering</span><h3>Context engineering: the discipline behind reliable AI agents</h3><p>Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

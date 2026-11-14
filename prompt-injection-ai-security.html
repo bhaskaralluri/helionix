@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prompt injection and AI security: protecting agents that can act | Helionix AI Systems</title>
+  <meta name="description" content="Why prompt injection is the defining security risk for AI agents, how attacks work, and a layered defence that assumes the model can be fooled.">
+  <link rel="canonical" href="https://helionixai.com/prompt-injection-ai-security.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Prompt injection and AI security: protecting agents that can act | Helionix AI Systems">
+  <meta property="og:description" content="Why prompt injection is the defining security risk for AI agents, how attacks work, and a layered defence that assumes the model can be fooled.">
+  <meta property="og:url" content="https://helionixai.com/prompt-injection-ai-security.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Prompt injection and AI security: protecting agents that can act", "description": "Why prompt injection is the defining security risk for AI agents, how attacks work, and a layered defence that assumes the model can be fooled.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/prompt-injection-ai-security.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">AI Security</span>
+      <h1 class="reveal d1">Prompt injection and AI security: protecting agents that can act</h1>
+      <p class="lead reveal d2">Why prompt injection is the defining security risk for AI agents, how attacks work, and a layered defence that assumes the model can be fooled.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 10 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>A chatbot that can only talk has a limited blast radius. An agent that can read your email, query your CRM and send messages does not. That is why <strong>prompt injection</strong> is widely treated as the leading security risk for LLM applications: it appears at the top of the OWASP list of risks for LLM applications, and it gets more dangerous every time you give an agent another tool.</p>
+
+<h2>What is prompt injection?</h2>
+<p>Language models receive instructions and data in the same channel: text. They have no reliable, built-in way to tell "this is a command from my operator" apart from "this is text I happened to read". Prompt injection exploits that: an attacker plants instructions where the model will read them, hoping it obeys.</p>
+<ul>
+<li><strong>Direct injection:</strong> the user types something like "ignore your previous instructions and...". Often called jailbreaking.</li>
+<li><strong>Indirect injection:</strong> the malicious text hides in content the agent retrieves: a web page, an email, a PDF, a support ticket, a code comment, or the output of a tool. The user never sees it. This is the more serious threat for agents.</li>
+</ul>
+
+<h2>What can go wrong?</h2>
+<ul>
+<li><strong>Data exfiltration:</strong> the agent is tricked into sending private data to an attacker, for example via a link, an image URL or an outbound message.</li>
+<li><strong>Unauthorised actions:</strong> issuing refunds, changing records, forwarding emails, running code.</li>
+<li><strong>Tool and server poisoning:</strong> a malicious or compromised tool description or <a href="model-context-protocol.html">MCP server</a> steers the model.</li>
+<li><strong>Cross-agent spread:</strong> a compromised output infects other agents in a <a href="multi-agent-systems.html">multi-agent system</a>.</li>
+</ul>
+
+<h2>The dangerous combination</h2>
+<p>Security researchers describe a "lethal trifecta": an agent is at serious risk when it combines <strong>access to private data</strong>, <strong>exposure to untrusted content</strong>, and <strong>the ability to communicate externally</strong>. With all three, one planted instruction can read secrets and send them out. The most reliable fix is to design so that no single agent has all three at once.</p>
+<div class="flow flow--article"><div class="flow__node"><span>1</span><h4>Private data</h4><p>CRM, email, documents</p></div><i class="flow__line"></i><div class="flow__node flow__node--core"><span>2</span><h4>Untrusted content</h4><p>Web, inbound email, uploads</p></div><i class="flow__line"></i><div class="flow__node"><span>3</span><h4>External actions</h4><p>Send, post, call APIs</p></div><i class="flow__line"></i><div class="flow__node"><span>4</span><h4>Risk</h4><p>All three together = exfiltration path</p></div></div>
+
+<h2>Why you cannot just "tell the model not to"</h2>
+<p>System-prompt warnings and input filters help, but they are probabilistic defences against a creative, adaptive adversary. Treat them as one layer, never the only one. The sound security posture is to <strong>assume the model will sometimes be fooled</strong> and limit what happens when it is.</p>
+
+<h2>A layered defence</h2>
+<h3>1. Least privilege</h3>
+<p>Give each agent the narrowest credentials and tools for its job. Prefer read-only. Run actions with the end user's permissions, not a shared super-account.</p>
+<h3>2. Break the trifecta</h3>
+<p>Separate agents that read untrusted content from agents that hold sensitive data or can act. Pass between them only structured, validated data, not free text that may contain instructions.</p>
+<h3>3. Human approval for consequential actions</h3>
+<p>Require confirmation before sending messages, moving money, deleting data or changing permissions, and show the human exactly what will happen.</p>
+<h3>4. Control the exits</h3>
+<p>Restrict outbound network access with allowlists, strip or block auto-loading of remote images and links in agent output, and monitor for unusual data leaving.</p>
+<h3>5. Treat tool output as untrusted</h3>
+<p>Label retrieved content as data, validate it against schemas, and never let it silently expand the agent's permissions or tool list.</p>
+<h3>6. Sandbox and isolate</h3>
+<p>Run code and browsing in isolated environments with no standing access to secrets.</p>
+<h3>7. Test, monitor and log</h3>
+<p>Red-team with injection attempts, include them in your <a href="agent-evaluation.html">evaluation suite</a>, trace every tool call, and alert on anomalies.</p>
+<aside class="callout"><b>The principle</b><p>Security for AI agents is mostly harness engineering: permissions, isolation, approvals and monitoring enforced in code, outside the model, where an attacker's text cannot talk its way past them.</p></aside>
+
+<h2>Where to start</h2>
+<ul>
+<li>List every tool and data source each agent can reach. Remove what it does not need.</li>
+<li>Find any agent that has all three trifecta ingredients, and split it.</li>
+<li>Add approval gates to every irreversible action.</li>
+<li>Add injection cases to your tests before launch, not after an incident.</li>
+</ul>
+<p>We build agents with these controls in the <a href="harness-engineering.html">harness</a> from day one. <a href="contact.html">Talk to us</a> about a security review of your AI agents.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="harness-engineering.html" class="post reveal d0"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a><a href="model-context-protocol.html" class="post reveal d1"><span class="tag">MCP</span><h3>Model Context Protocol (MCP) explained for enterprises</h3><p>What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.</p><em>9 min read &rarr;</em></a><a href="agent-evaluation.html" class="post reveal d2"><span class="tag">AI Agents</span><h3>Agent evaluation: how to know your AI agent actually works</h3><p>Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

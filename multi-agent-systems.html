@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multi-agent systems: when more agents help, and when they do not | Helionix AI Systems</title>
+  <meta name="description" content="Orchestrators, specialists, handoffs and critics: the main multi-agent patterns, their real costs, and a practical rule for deciding if you need more than one agent.">
+  <link rel="canonical" href="https://helionixai.com/multi-agent-systems.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Multi-agent systems: when more agents help, and when they do not | Helionix AI Systems">
+  <meta property="og:description" content="Orchestrators, specialists, handoffs and critics: the main multi-agent patterns, their real costs, and a practical rule for deciding if you need more than one agent.">
+  <meta property="og:url" content="https://helionixai.com/multi-agent-systems.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Multi-agent systems: when more agents help, and when they do not", "description": "Orchestrators, specialists, handoffs and critics: the main multi-agent patterns, their real costs, and a practical rule for deciding if you need more than one agent.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/multi-agent-systems.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">AI Agents</span>
+      <h1 class="reveal d1">Multi-agent systems: when more agents help, and when they do not</h1>
+      <p class="lead reveal d2">Orchestrators, specialists, handoffs and critics: the main multi-agent patterns, their real costs, and a practical rule for deciding if you need more than one agent.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 9 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>A single agent with good tools can do a surprising amount. But as tasks get broader, teams reach for <strong>multi-agent systems</strong>: several agents, each with its own role, instructions and tools, coordinating toward one goal. Done well, they can tackle work that overwhelms a single agent. Done carelessly, they multiply cost and confusion.</p>
+
+<h2>Why use more than one agent?</h2>
+<ul>
+<li><strong>Context isolation.</strong> Each agent works in its own clean <a href="context-engineering.html">context window</a> and returns a distilled result, instead of one window filling with everything.</li>
+<li><strong>Parallelism.</strong> Independent subtasks, such as researching ten vendors, can run at once.</li>
+<li><strong>Specialisation.</strong> Different prompts, tools and even models per role (a cheap fast model for triage, a stronger one for analysis).</li>
+<li><strong>Separation of duties.</strong> A reviewer agent that did not write the output is a better checker than the author.</li>
+</ul>
+
+<h2>Common patterns</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pattern</th><th>How it works</th><th>Typical use</th></tr></thead><tbody><tr><td><strong>Orchestrator and workers</strong></td><td>A lead agent plans, delegates subtasks to workers, then synthesises results.</td><td>Research, analysis, broad information gathering.</td></tr><tr><td><strong>Pipeline</strong></td><td>Agents run in sequence; each hands its output to the next.</td><td>Document processing, content production, staged approvals.</td></tr><tr><td><strong>Router and specialists</strong></td><td>A triage agent sends each request to the right specialist.</td><td>Support desks, internal helpdesks.</td></tr><tr><td><strong>Generator and critic</strong></td><td>One agent drafts, another reviews and requests changes.</td><td>Code, contracts, reports, anything quality-sensitive.</td></tr><tr><td><strong>Handoff</strong></td><td>One agent transfers the conversation, with state, to another.</td><td>Customer journeys that cross domains.</td></tr></tbody></table></div>
+<div class="flow flow--article"><div class="flow__node"><span>1</span><h4>Lead agent</h4><p>Plans and delegates</p></div><i class="flow__line"></i><div class="flow__node flow__node--core"><span>2</span><h4>Workers</h4><p>Run subtasks in parallel</p></div><i class="flow__line"></i><div class="flow__node"><span>3</span><h4>Critic</h4><p>Checks quality and policy</p></div><i class="flow__line"></i><div class="flow__node"><span>4</span><h4>Result</h4><p>Synthesised, verified output</p></div></div>
+
+<h2>The real costs</h2>
+<p>Multi-agent is not free. Each agent consumes its own tokens, and coordinating them adds more, so total usage is often several times that of a single agent on the same task. You also take on:</p>
+<ul>
+<li><strong>Coordination failures:</strong> unclear delegation, duplicated work, conflicting assumptions.</li>
+<li><strong>Error propagation:</strong> one agent's wrong output becomes another's trusted input.</li>
+<li><strong>Harder debugging:</strong> behaviour emerges from interactions, so you need end-to-end tracing.</li>
+<li><strong>Shared-state hazards:</strong> two agents editing the same record or file at once.</li>
+<li><strong>A larger attack surface:</strong> see <a href="prompt-injection-ai-security.html">prompt injection</a>, since agents pass text to each other.</li>
+</ul>
+
+<h2>A practical rule</h2>
+<aside class="callout"><b>Start with one</b><p>Begin with a single agent and good tools. Add agents only when you can name the specific limit you hit: context overflow, a genuinely parallel workload, or a need for independent review. Multi-agent systems shine on broad, parallelisable work, and tend to struggle on tightly coupled tasks where every step depends on every other.</p></aside>
+
+<h2>Design tips</h2>
+<ul>
+<li>Give each agent one clear job, explicit inputs and outputs, and the minimum tools it needs.</li>
+<li>Delegate with detailed instructions; vague hand-offs are the top cause of wasted work.</li>
+<li>Return concise summaries and references, not raw transcripts, between agents.</li>
+<li>Put budgets and stop conditions on the whole system, not just each agent.</li>
+<li>Evaluate the system end to end, and each agent in isolation (see <a href="agent-evaluation.html">agent evaluation</a>).</li>
+</ul>
+<p>Multi-agent orchestration sits inside the <a href="harness-engineering.html">harness</a>, and each agent still runs the <a href="agent-loop.html">agent loop</a>. See our <a href="ai-agents.html">AI agent service</a> for how we apply it.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="agent-loop.html" class="post reveal d0"><span class="tag">AI Agents</span><h3>The agent loop: how AI agents plan, act and verify</h3><p>The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.</p><em>8 min read &rarr;</em></a><a href="agent-evaluation.html" class="post reveal d1"><span class="tag">AI Agents</span><h3>Agent evaluation: how to know your AI agent actually works</h3><p>Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.</p><em>9 min read &rarr;</em></a><a href="harness-engineering.html" class="post reveal d2"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

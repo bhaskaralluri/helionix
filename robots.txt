@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# AI answer-engine crawlers are welcome - we practice what we preach.
+User-agent: GPTBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://helionixai.com/sitemap.xml

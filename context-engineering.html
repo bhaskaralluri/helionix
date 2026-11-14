@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Context engineering: the discipline behind reliable AI agents | Helionix AI Systems</title>
+  <meta name="description" content="Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.">
+  <link rel="canonical" href="https://helionixai.com/context-engineering.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Context engineering: the discipline behind reliable AI agents | Helionix AI Systems">
+  <meta property="og:description" content="Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.">
+  <meta property="og:url" content="https://helionixai.com/context-engineering.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Context engineering: the discipline behind reliable AI agents", "description": "Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/context-engineering.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">Context Engineering</span>
+      <h1 class="reveal d1">Context engineering: the discipline behind reliable AI agents</h1>
+      <p class="lead reveal d2">Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 9 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>For a while, the craft of working with language models was called <em>prompt engineering</em>: find the right wording and the model behaves. That framing breaks down the moment you build an agent. An agent runs for dozens or hundreds of steps, calls tools, reads documents and accumulates history. The question stops being "what should the prompt say?" and becomes "<strong>what should the model be looking at right now?</strong>"</p>
+<p>That second question is <strong>context engineering</strong>: designing and managing everything that enters the model's context window on each step, so it has what it needs and nothing that gets in the way.</p>
+
+<h2>What counts as context?</h2>
+<p>The context window is the model's entire working memory for a single call. It is made of several ingredients, and each one is a design decision:</p>
+<ul>
+<li><strong>System instructions:</strong> the role, rules, tone and constraints.</li>
+<li><strong>Tool definitions:</strong> names, descriptions and schemas of what the agent can do.</li>
+<li><strong>Retrieved knowledge:</strong> documents, database rows, search results pulled in on demand.</li>
+<li><strong>Conversation and action history:</strong> earlier turns, tool calls and their outputs.</li>
+<li><strong>Memory:</strong> facts and notes persisted from earlier sessions.</li>
+<li><strong>The current task:</strong> the user's request and any structured state.</li>
+</ul>
+
+<h2>Why more context is not better</h2>
+<p>Context is a finite, costly resource. Every token competes for the model's attention, so stuffing the window usually <em>hurts</em>. Practitioners often call the effect <strong>context rot</strong>: as the window fills with stale tool output, irrelevant documents and abandoned lines of reasoning, accuracy and instruction-following tend to degrade, and costs and latency climb. The goal is the <em>smallest set of high-signal tokens</em> that makes the right next action likely.</p>
+<aside class="callout"><b>Rule of thumb</b><p>If a human expert looking at the same page could not tell what to do next, the model will struggle too. Context should read like a clean briefing, not a dump.</p></aside>
+
+<h2>Core techniques</h2>
+<h3>1. Just-in-time retrieval</h3>
+<p>Instead of preloading everything, give the agent lightweight pointers (file paths, IDs, search tools) and let it fetch details only when needed. This keeps the window lean and lets the agent explore progressively, discovering what matters as it works.</p>
+<h3>2. Compaction and summarization</h3>
+<p>When a long task nears the window limit, summarize the history: keep decisions, open questions and key facts; drop raw tool output and dead ends. A good compaction preserves what the agent must not forget and discards what it can re-fetch.</p>
+<h3>3. Structured note-taking and memory</h3>
+<p>Let the agent write notes outside the window (a to-do list, a scratchpad file, a memory store) and read them back when relevant. This gives long-horizon work continuity across resets without carrying everything in-context.</p>
+<h3>4. Sub-agents with isolated context</h3>
+<p>Delegate a focused subtask, such as "research this vendor", to a sub-agent with its own clean window. It may explore widely, but returns only a short, distilled result to the main agent, so the parent's context stays uncluttered.</p>
+<h3>5. Tool design and prompt caching</h3>
+<p>Tools are context too. Fewer, clearer, non-overlapping tools with precise descriptions beat a sprawling menu. Keeping stable content (system prompt, tool list) at the front of the prompt also lets you take advantage of provider prompt caching to cut cost and latency.</p>
+
+<div class="flow flow--article"><div class="flow__node"><span>1</span><h4>Select</h4><p>Choose what is relevant</p></div><i class="flow__line"></i><div class="flow__node flow__node--core"><span>2</span><h4>Compress</h4><p>Summarize and trim</p></div><i class="flow__line"></i><div class="flow__node"><span>3</span><h4>Isolate</h4><p>Sub-agents, scoped windows</p></div><i class="flow__line"></i><div class="flow__node"><span>4</span><h4>Persist</h4><p>Notes and memory outside the window</p></div></div>
+
+<h2>Context engineering in practice</h2>
+<p>When we build enterprise agents, context decisions are made explicit and tested:</p>
+<ul>
+<li>We define, per workflow, <em>which</em> data sources an agent may read and in what order.</li>
+<li>We measure answer quality as context size grows, and set compaction thresholds from evidence.</li>
+<li>We log the exact context sent on each step, so a bad outcome can be traced to a bad input.</li>
+<li>We treat retrieved text as untrusted input, a basic defence against prompt injection.</li>
+</ul>
+<p>Context engineering is one half of building dependable agents. The other half is the surrounding system that runs the model, covered in <a href="harness-engineering.html">harness engineering</a>.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="harness-engineering.html" class="post reveal d0"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a><a href="agent-loop.html" class="post reveal d1"><span class="tag">AI Agents</span><h3>The agent loop: how AI agents plan, act and verify</h3><p>The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.</p><em>8 min read &rarr;</em></a><a href="rag-guide.html" class="post reveal d2"><span class="tag">LLM & RAG</span><h3>RAG, fine-tuning or long context? How to choose</h3><p>Three ways to give a model your company's knowledge. What each is good at, where each fails, and a simple decision guide.</p><em>8 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

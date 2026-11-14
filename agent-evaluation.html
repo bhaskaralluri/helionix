@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent evaluation: how to know your AI agent actually works | Helionix AI Systems</title>
+  <meta name="description" content="Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.">
+  <link rel="canonical" href="https://helionixai.com/agent-evaluation.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Agent evaluation: how to know your AI agent actually works | Helionix AI Systems">
+  <meta property="og:description" content="Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.">
+  <meta property="og:url" content="https://helionixai.com/agent-evaluation.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Agent evaluation: how to know your AI agent actually works", "description": "Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/agent-evaluation.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">AI Agents</span>
+      <h1 class="reveal d1">Agent evaluation: how to know your AI agent actually works</h1>
+      <p class="lead reveal d2">Why agents are hard to test, what to measure, and how to build an evaluation suite that catches regressions before your customers do.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 9 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>Traditional software is tested with assertions: given input A, expect output B. AI agents break that model. They are non-deterministic, take different paths to the same goal, call tools, and can be "mostly right" in ways that are hard to score. Yet without evaluation you are shipping on vibes: you cannot tell whether a prompt tweak, a new model or a new tool made things better or quietly worse.</p>
+<p><strong>Agent evaluation</strong> (often called <em>evals</em>) is the practice of measuring agent quality systematically, with repeatable tests that run on every change.</p>
+
+<h2>What to measure</h2>
+<ul>
+<li><strong>Task success:</strong> did the agent reach the correct end state (ticket resolved, record updated, answer correct)?</li>
+<li><strong>Trajectory quality:</strong> did it take sensible steps, use the right tools with the right arguments, and avoid wasted or risky actions?</li>
+<li><strong>Safety and policy compliance:</strong> did it stay within permissions, respect approval gates and refuse what it should?</li>
+<li><strong>Efficiency:</strong> steps, tokens, latency and cost per task.</li>
+<li><strong>Reliability:</strong> does it succeed <em>consistently</em>, not just once?</li>
+</ul>
+<aside class="callout"><b>Outcome over path</b><p>Grade what the agent achieved wherever possible, not whether it followed one exact sequence. Agents often find valid routes you did not anticipate, and rigid path-matching punishes them for it. Use trajectory checks for safety-critical steps and for diagnosing failures.</p></aside>
+
+<h2>Three kinds of graders</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Grader</th><th>How it works</th><th>Best for</th></tr></thead><tbody><tr><td><strong>Code-based</strong></td><td>Deterministic checks: database state, test results, schema validity, exact fields.</td><td>Anything objectively verifiable. Fast, cheap, reliable.</td></tr><tr><td><strong>Model-based (LLM judge)</strong></td><td>A model scores output against a rubric.</td><td>Open-ended quality: tone, completeness, helpfulness. Calibrate against humans.</td></tr><tr><td><strong>Human review</strong></td><td>Experts grade samples.</td><td>Ground truth, subjective quality, and calibrating the other graders.</td></tr></tbody></table></div>
+
+<h2>Building an eval suite</h2>
+<h3>1. Start from real failures</h3>
+<p>Collect actual tasks and, especially, actual mistakes from pilots and production logs. Twenty to fifty well-chosen cases drawn from reality beat hundreds of invented ones. Every bug you fix should become a permanent test.</p>
+<h3>2. Cover the edges</h3>
+<p>Include easy wins, ambiguous requests, missing data, tool errors and timeouts, hostile or manipulative inputs, and cases where the correct behaviour is to refuse or escalate.</p>
+<h3>3. Make environments reproducible</h3>
+<p>Run tasks in a sandbox with controlled data and mocked or snapshot-restored systems, so a score changes because the agent changed, not because the world did.</p>
+<h3>4. Measure reliability, not luck</h3>
+<p>Because runs vary, run each task several times. A metric like "succeeds at least once in k tries" flatters an agent; a business process usually needs it to succeed <em>every</em> time. Track both, and watch the consistent-success rate.</p>
+<h3>5. Evaluate offline and online</h3>
+<p>Offline suites gate every change before release. Online monitoring of production traces, with sampling, user feedback and automated checks, finds the problems no test set anticipated, and feeds new cases back in.</p>
+
+<h2>Common mistakes</h2>
+<ul>
+<li>Testing only the happy path.</li>
+<li>Trusting an LLM judge without ever comparing it to human grades.</li>
+<li>Changing prompt, model and tools at once, so you cannot tell what helped.</li>
+<li>Letting the eval set go stale as the product changes.</li>
+<li>Reading only the aggregate score and never the failing transcripts.</li>
+</ul>
+<p>Evaluation is a core part of the <a href="harness-engineering.html">agent harness</a>: it is how an <a href="agent-loop.html">agent loop</a> earns the right to run unattended. Our <a href="ai-agents.html">enterprise agent engagements</a> ship with an eval suite from the first pilot.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="harness-engineering.html" class="post reveal d0"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a><a href="agent-loop.html" class="post reveal d1"><span class="tag">AI Agents</span><h3>The agent loop: how AI agents plan, act and verify</h3><p>The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.</p><em>8 min read &rarr;</em></a><a href="multi-agent-systems.html" class="post reveal d2"><span class="tag">AI Agents</span><h3>Multi-agent systems: when more agents help, and when they do not</h3><p>Orchestrators, specialists, handoffs and critics: the main multi-agent patterns, their real costs, and a practical rule for deciding if you need more than one agent.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

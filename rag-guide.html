@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAG, fine-tuning or long context? How to choose | Helionix AI Systems</title>
+  <meta name="description" content="Three ways to give a model your company's knowledge. What each is good at, where each fails, and a simple decision guide.">
+  <link rel="canonical" href="https://helionixai.com/rag-guide.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RAG, fine-tuning or long context? How to choose | Helionix AI Systems">
+  <meta property="og:description" content="Three ways to give a model your company's knowledge. What each is good at, where each fails, and a simple decision guide.">
+  <meta property="og:url" content="https://helionixai.com/rag-guide.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "RAG, fine-tuning or long context? How to choose", "description": "Three ways to give a model your company's knowledge. What each is good at, where each fails, and a simple decision guide.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/rag-guide.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">LLM & RAG</span>
+      <h1 class="reveal d1">RAG, fine-tuning or long context? How to choose</h1>
+      <p class="lead reveal d2">Three ways to give a model your company's knowledge. What each is good at, where each fails, and a simple decision guide.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 8 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>Out of the box, a language model knows nothing about your contracts, your product catalog or last week's policy change. There are three main ways to close that gap, and teams often pick the wrong one.</p>
+
+<h2>The three approaches</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Approach</th><th>What it is</th><th>Strengths</th><th>Watch-outs</th></tr></thead><tbody><tr><td><strong>RAG</strong> (retrieval-augmented generation)</td><td>Search your documents at question time and give the relevant passages to the model.</td><td>Fresh data, citations, access control, no retraining.</td><td>Quality depends on retrieval, chunking and ranking.</td></tr><tr><td><strong>Long context</strong></td><td>Paste large amounts of material straight into the prompt.</td><td>Simple to start; good for a bounded set of documents.</td><td>Cost, latency and accuracy can suffer as the window fills.</td></tr><tr><td><strong>Fine-tuning</strong></td><td>Further train a model on examples.</td><td>Teaches style, format and specialised behaviour.</td><td>Poor for facts that change; needs data and upkeep.</td></tr></tbody></table></div>
+
+<h2>A simple decision guide</h2>
+<ul>
+<li><strong>Need answers grounded in changing company knowledge, with sources?</strong> Start with RAG.</li>
+<li><strong>Small, fixed document set, one-off analysis?</strong> Long context may be enough.</li>
+<li><strong>Need a consistent tone, format or specialised task behaviour?</strong> Consider fine-tuning, often alongside RAG.</li>
+</ul>
+<p>In practice, strong systems combine them: RAG for knowledge, good <a href="context-engineering.html">context engineering</a> for what reaches the model, and occasionally fine-tuning for behaviour.</p>
+
+<h2>What makes RAG actually work</h2>
+<ul>
+<li><strong>Quality ingestion:</strong> clean extraction from PDFs, tables and wikis, with sensible chunking and metadata.</li>
+<li><strong>Hybrid retrieval:</strong> combine semantic (vector) search with keyword search, then re-rank.</li>
+<li><strong>Access control:</strong> retrieve only what the asking user is allowed to see, enforced at query time.</li>
+<li><strong>Citations:</strong> show sources so users can verify answers.</li>
+<li><strong>Evaluation:</strong> a test set of real questions that measures retrieval and answer quality, and runs on every change.</li>
+<li><strong>Graceful refusal:</strong> say "I don't know" when the evidence is not there.</li>
+</ul>
+<aside class="callout"><b>Where it goes wrong</b><p>Most disappointing RAG systems fail at retrieval, not generation: the right passage never reached the model. Fix ingestion and search before blaming the model.</p></aside>
+<p>We build private, permission-aware assistants as part of our <a href="llm-rag.html">custom LLM &amp; RAG service</a>.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="context-engineering.html" class="post reveal d0"><span class="tag">Context Engineering</span><h3>Context engineering: the discipline behind reliable AI agents</h3><p>Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.</p><em>9 min read &rarr;</em></a><a href="model-context-protocol.html" class="post reveal d1"><span class="tag">MCP</span><h3>Model Context Protocol (MCP) explained for enterprises</h3><p>What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.</p><em>9 min read &rarr;</em></a><a href="harness-engineering.html" class="post reveal d2"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>

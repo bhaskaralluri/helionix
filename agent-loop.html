@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The agent loop: how AI agents plan, act and verify | Helionix AI Systems</title>
+  <meta name="description" content="The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.">
+  <link rel="canonical" href="https://helionixai.com/agent-loop.html">
+  <meta name="theme-color" content="#070A14">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The agent loop: how AI agents plan, act and verify | Helionix AI Systems">
+  <meta property="og:description" content="The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.">
+  <meta property="og:url" content="https://helionixai.com/agent-loop.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The agent loop: how AI agents plan, act and verify", "description": "The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.", "author": {"@type": "Organization", "name": "Helionix AI Systems"}, "publisher": {"@type": "Organization", "name": "Helionix AI Systems"}, "mainEntityOfPage": "https://helionixai.com/agent-loop.html", "datePublished": "2026-11-13"}</script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB547"/><stop offset=".55" stop-color="#FF4D8D"/><stop offset="1" stop-color="#7C5CFF"/></linearGradient></defs></svg>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="index.html" class="brand" aria-label="Helionix AI Systems home"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="geo-seo.html">AI GEO &amp; SEO</a>
+        <a href="ai-agents.html">AI Agents</a>
+        <a href="about.html">About</a>
+        <a href="insights.html" aria-current="page">Insights</a>
+        <a href="contact.html" class="btn btn--sm btn--glow nav__cta">Book a strategy call</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+<section class="page-hero page-hero--article">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="wrap wrap--article">
+      <p class="crumb reveal"><a href="index.html">Home</a> <span>/</span> <a href="insights.html">Insights</a></p>
+      <span class="tag reveal d1">AI Agents</span>
+      <h1 class="reveal d1">The agent loop: how AI agents plan, act and verify</h1>
+      <p class="lead reveal d2">The simple pattern at the heart of every AI agent, why loops fail in practice, and the controls that keep them safe, bounded and useful.</p>
+      <p class="meta reveal d3">Helionix AI Systems &middot; November 2026 &middot; 8 min read</p>
+    </div>
+  </section>
+  <article class="section" style="padding-top:20px"><div class="wrap wrap--article prose article">
+<p>Strip away the frameworks and nearly every AI agent is built on the same idea: a <strong>loop</strong>. The model looks at the situation, decides what to do, takes an action through a tool, observes the result, and repeats until the job is done. This pattern, popularised by approaches such as ReAct (reason and act), is what turns a model that answers questions into one that completes tasks.</p>
+
+<div class="flow flow--article"><div class="flow__node"><span>1</span><h4>Gather context</h4><p>Read task, state, tool results</p></div><i class="flow__line"></i><div class="flow__node flow__node--core"><span>2</span><h4>Decide</h4><p>Plan the next step</p></div><i class="flow__line"></i><div class="flow__node"><span>3</span><h4>Act</h4><p>Call a tool or write output</p></div><i class="flow__line"></i><div class="flow__node"><span>4</span><h4>Verify</h4><p>Check the result, then loop or stop</p></div></div>
+
+<h2>The four phases</h2>
+<ul>
+<li><strong>Gather context.</strong> Assemble the task, relevant data and results from previous steps (<a href="context-engineering.html">context engineering</a> decides what goes in).</li>
+<li><strong>Decide.</strong> The model reasons about the goal and picks the next action, often a tool call with arguments.</li>
+<li><strong>Act.</strong> The harness executes the tool inside its permissions and returns the output as an observation.</li>
+<li><strong>Verify.</strong> Check the outcome: did it work, is it complete, does it pass policy? Then continue or stop.</li>
+</ul>
+
+<h2>Common loop patterns</h2>
+<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Pattern</th><th>How it works</th><th>Best for</th></tr></thead><tbody><tr><td><strong>Single loop (ReAct)</strong></td><td>Reason, act, observe, repeat in one thread.</td><td>Open-ended tasks with unpredictable steps.</td></tr><tr><td><strong>Plan and execute</strong></td><td>Write a plan first, then run steps, re-planning when needed.</td><td>Longer, multi-stage workflows.</td></tr><tr><td><strong>Orchestrator and workers</strong></td><td>A lead agent delegates subtasks to specialist sub-agents.</td><td>Broad research, parallelisable work.</td></tr><tr><td><strong>Generator and critic</strong></td><td>One step produces, another reviews and requests fixes.</td><td>Quality-sensitive output like code, reports, contracts.</td></tr></tbody></table></div>
+
+<h2>How loops go wrong</h2>
+<ul>
+<li><strong>Endless looping:</strong> the agent retries the same failing step without making progress.</li>
+<li><strong>Compounding errors:</strong> an early mistake gets treated as fact and builds on itself.</li>
+<li><strong>Runaway cost:</strong> many steps with large contexts add up fast.</li>
+<li><strong>Premature "done":</strong> the agent declares success without actually verifying.</li>
+<li><strong>Unsafe actions:</strong> an over-privileged tool does something irreversible.</li>
+</ul>
+
+<h2>Controls that keep loops safe</h2>
+<ul>
+<li><strong>Hard budgets:</strong> maximum steps, tokens, time and spend per run.</li>
+<li><strong>Explicit stop conditions:</strong> objective checks (tests pass, record updated), not the model's say-so.</li>
+<li><strong>Loop and stall detection:</strong> detect repeated actions and escalate to a human or a different strategy.</li>
+<li><strong>Checkpoints and approvals</strong> before high-impact actions.</li>
+<li><strong>Retries with backoff and error feedback</strong> so the model sees <em>why</em> a call failed.</li>
+<li><strong>Full tracing</strong> so every iteration can be replayed.</li>
+</ul>
+<aside class="callout"><b>Takeaway</b><p>The loop itself is simple. Reliability comes from the harness around it: budgets, verification, permissions and observability.</p></aside>
+<p>Read next: <a href="harness-engineering.html">harness engineering</a>, the system that wraps the loop.</p>
+</div></article>
+  <section class="section section--alt"><div class="wrap">
+    <header class="section__head center"><p class="eyebrow reveal">Keep reading</p><h2 class="reveal d1">More from <span class="grad">Insights</span></h2></header>
+    <div class="posts"><a href="harness-engineering.html" class="post reveal d0"><span class="tag">Harness Engineering</span><h3>Harness engineering: build the system around the model, not just the prompt</h3><p>An AI agent is a model plus a harness. Here is what the harness contains, why it determines reliability, and how to design one for production.</p><em>9 min read &rarr;</em></a><a href="context-engineering.html" class="post reveal d1"><span class="tag">Context Engineering</span><h3>Context engineering: the discipline behind reliable AI agents</h3><p>Why what you put in the context window matters more than how cleverly you word a prompt, and the practical techniques that keep agents accurate over long tasks.</p><em>9 min read &rarr;</em></a><a href="model-context-protocol.html" class="post reveal d2"><span class="tag">MCP</span><h3>Model Context Protocol (MCP) explained for enterprises</h3><p>What MCP is, how it connects AI agents to tools and data through one open standard, and what enterprises should consider around security and governance.</p><em>9 min read &rarr;</em></a></div>
+  </div></section>
+  <section class="section cta">
+    <div class="cta__glow" aria-hidden="true"></div>
+    <div class="wrap center"><h2 class="reveal">Want this applied to <span class="grad">your business?</span></h2><p class="sub reveal d1">Talk to our team about AI agents, GEO or custom AI for your organization.</p>
+    <div class="hero__cta reveal d2" style="justify-content:center"><a href="contact.html" class="btn btn--glow">Book a strategy call <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div>
+  </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <a href="index.html" class="brand"><svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="15" fill="none" stroke="url(#lg)" stroke-width="4"/><circle cx="32" cy="32" r="6" fill="url(#lg)"/><g stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><path d="M32 6v7M32 51v7M6 32h7M51 32h7M13.6 13.6l5 5M45.4 45.4l5 5M13.6 50.4l5-5M45.4 18.6l5-5"/></g></svg><span class="brand__text">Helionix<small>AI Systems</small></span></a>
+        <p class="footer__tag">AI GEO &amp; SEO. Enterprise AI agents. Applied AI that works.</p>
+      </div>
+      <div><h5>Services</h5><a href="geo-seo.html">AI GEO &amp; SEO</a><a href="ai-agents.html">Enterprise AI agents</a><a href="llm-rag.html">Custom LLM &amp; RAG</a><a href="workflow-automation.html">Workflow automation</a></div>
+      <div><h5>Company</h5><a href="about.html">About</a><a href="insights.html">Insights</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="wrap footer__base"><span>&copy; <span id="yr">2026</span> Helionix AI Systems. All rights reserved.</span><span>helionixai.com</span></div>
+  </footer>
+  <script src="assets/main.js"></script>
+</body>
+</html>
